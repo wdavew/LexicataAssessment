@@ -21,7 +21,7 @@ function tagExists(state) {
 
 // add tag to array of available tags if it does not exist
 function submitTagName(state) {
-  if (tagExists(state)) return state;
+  if (tagExists(state) || !(state.tagName.length)) return state;
   return {
     ...state,
     colorSelectVisible: true,
