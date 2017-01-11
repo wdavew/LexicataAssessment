@@ -1,3 +1,7 @@
+
+/*overeall style
+-------------------
+*/
 .tag-editor {
   width: 100%;
   background: #FAFAFA;
@@ -6,13 +10,15 @@
   padding: 10px 20px;
   border-radius: 6px;
 }
-
-.tag-editor ul {
-  list-style: none;
-  padding-left: 0px;
+.tag-editor-title {
+  font-weight: 500;
+  padding: 0px;
+  margin: 0px;
 }
 
-
+/*buttons
+-------------------
+*/
 button {
   display: inline-block;
   background: none;
@@ -24,32 +30,39 @@ button:focus {
 button:hover, .color-select-square:hover {
   cursor: pointer;
 }
-
-.tag-editor-title {
-  font-weight: 500;
-  padding: 0px;
-  margin: 0px;
+.clickable-btn {
+  margin-left: 9px;
+  height: 30px;
+  color: white;
+}
+#color-btn {
+  display: inline-block;
+}
+#color-select-btn {
+  background-color: #33b5e8;
+}
+.down-arrow {
+  margin-left: 20px;
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 7px solid #33b5e8;
+}
+#submit-tag-btn {
+  background-color: #303030;
 }
 
+/*tag display
+-------------------
+*/
+.tag-editor ul {
+  list-style: none;
+  padding-left: 0px;
+}
 #tag-display {
   margin: 15px 0px;
 }
-
-.color-select-square {
-  border-radius: 1px;
-  float: left;
-  width: 20px;
-  height: 20px;
-}
-
-#color-select {
-  position: absolute;
-  margin-left: 150px;
-  margin-top: 10px;
-  z-index: 2;
-  width: 99px;
-}
-
 .tag-icon {
   color: white;
   display: inline-flex;
@@ -60,7 +73,6 @@ button:hover, .color-select-square:hover {
   border-radius: 3px;
   border: 1px solid rgba(0,0,0, 0.25);
 }
-
 .tag-label {
   margin: 5px 10px;
 }
@@ -72,12 +84,21 @@ button:hover, .color-select-square:hover {
   width: 30px;
   border-left: 1px solid rgba(0,0,0, 0.25);
 }
+.tag-display-label {
+  margin-left: 5px;
+}
 
+/* tag creation
+-------------------
+*/
+#tag-creation {
+  position: relative;
+}
 #input-container {
   vertical-align:top;
   display: inline-block;
+  margin-bottom: 15px;
 }
-
 input {
   height: 30px;
   font-size: 1em;
@@ -85,61 +106,57 @@ input {
   border-radius: 3px;
   border: 1px solid #d0d0d0;
 }
-
 input:focus {
   outline: none;
 }
-
 #tag-dropdown {
+  position: absolute;
+  max-height: 200px;
+  overflow: auto;
   min-height: 0px;
   margin: 0px;
 }
-
-.clickable-btn {
-  margin-left: 9px;
-  height: 30px;
-  color: white;
-}
-
 #tag-dropdown li {
   font-weight: 400;
   display: flex;
   align-items: center;
+  padding-right: 5px;
   justify-content: flex-start;
   background-color: white;
   border: 1px solid #d0d0d0;
   border-top: none;
   border-radius: 3px;
 }
-
 #tag-dropdown li:hover {
   cursor: pointer;
-  background-color: rgba(0,0,0, 0.05)
+  background-color: #f0f0f0;
 }
 
+/* color selection
+-------------------
+*/
+.color-select-square {
+  border-radius: 1px;
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+#color-select {
+  position: absolute;
+  top: 30px;
+  margin-left: 182px;
+  margin-top: 10px;
+  z-index: 2;
+  width: 99px;
+}
 .color-square {
   display: inline-block;
   border-radius: 2px;
-  border: 1px solid rgba(0,0,0, 0.5);
+  border: 1px solid rgba(0,0,0, 0.25);
   margin: 5px;
   width: 20px;
   height: 20px;
 }
-
-.tag-display-label {
-  margin-left: 5px;
-}
-
-
-#color-select-btn {
-  background-color: #33b5e8;
-}
-
-#submit-tag-btn {
-  background-color: #303030;
-}
-
-
 .color-select-square:focus {
   outline: 1px solid black;
 }
