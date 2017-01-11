@@ -1,7 +1,8 @@
 import types from './actionTypes';
+import tagsJSON from './api/tags.json';
 
 const INITIAL_STATE = {
-  availableTags: [],
+  availableTags: tagsJSON.tags,
   displayedTags: [],
   tagName: '',
   tagColor: '#0fade9',
@@ -65,7 +66,6 @@ function submitTag(state) {
 }
 
 export default (state = INITIAL_STATE, action) => {
-  console.log('received', action);
   switch (action.type) {
     case types.CHANGE_TAG_NAME:
       return { ...state, tagName: action.value };
