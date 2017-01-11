@@ -50,7 +50,7 @@ function displayTag(state, action) {
 }
 
 function submitTag(state) {
-  if (tagExists(state)) return state;
+  if (tagExists(state) || !(state.tagName.length)) return state;
   const newTag = {
     label: state.tagName,
     color: state.tagColor,
