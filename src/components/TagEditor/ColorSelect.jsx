@@ -21,7 +21,8 @@ export default ({selectColor, visible}) => {
     return (
       <button className='color-select-square'
         style={{ "backgroundColor": hex }}
-        onClick={() => selectColor(hex)} >
+        onClick={() => selectColor(hex)}
+        key={hex} >
       </button >
     );
   });
