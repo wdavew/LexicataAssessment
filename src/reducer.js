@@ -65,6 +65,7 @@ function submitTag(state) {
 }
 
 export default (state = INITIAL_STATE, action) => {
+  console.log('received', action);
   switch (action.type) {
     case types.CHANGE_TAG_NAME:
       return { ...state, tagName: action.value };
@@ -74,9 +75,8 @@ export default (state = INITIAL_STATE, action) => {
       return removeTag(state, action);
     case types.DISPLAY_TAG:
       return displayTag(state, action);
-    case types.TOGGLE_DISPLAY_TAGSELECT: {
-      const visibility = !state.dropDownVisible;
-      return { ...state, dropDownVisible: visibility };
+    case types.SET_DROPDOWN_DISPLAY: {
+      return { ...state, dropDownVisible: action.status };
     }
     case types.SELECT_TAG_COLOR:
       return { ...state, tagColor: action.color };

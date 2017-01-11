@@ -153,14 +153,13 @@ describe('reducer', () => {
       dropDownVisible: false,
     };
     const action = {
-      type: types.TOGGLE_DISPLAY_TAGSELECT,
+      type: types.SET_DROPDOWN_DISPLAY,
+      status: true,
     };
     let nextState = reducer(initialState, action);
     expect(nextState).toEqual({
       dropDownVisible: true,
     });
-    nextState = reducer(nextState, action);
-    expect(nextState).toEqual(initialState);
   });
 
   it('handles SELECT_TAG_COLOR', () => {
