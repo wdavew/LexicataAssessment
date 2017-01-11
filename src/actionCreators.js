@@ -10,7 +10,7 @@ export const submitTagName = () => ({
 });
 
 export const displayTag = label => ({
-  type: types.SUBMIT_TAG_NAME,
+  type: types.DISPLAY_TAG,
   label,
 });
 
@@ -19,8 +19,9 @@ export const removeTag = label => ({
   label,
 });
 
-export const displayTagSelect = () => ({
-  type: types.TOGGLE_DISPLAY_TAGSELECT,
+export const displayTagSelect = (val) => ({
+  type: types.SET_DROPDOWN_DISPLAY,
+  status: val,
 });
 
 export const selectTagColor = (color) => ({
