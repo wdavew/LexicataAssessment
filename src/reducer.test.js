@@ -2,46 +2,66 @@ import reducer from './reducer';
 import types from './actionTypes';
 
 describe('reducer', () => {
-  it('handles CHANGE_TAG_INPUT', () => {
+  it('handles CHANGE_TAG_NAME', () => {
     const initialState = {};
     const action = {
-      type: types.CHANGE_TAG_INPUT,
+      type: types.CHANGE_TAG_NAME,
       value: 'Tag name',
     };
     const nextState = reducer(initialState, action);
     expect(nextState).toEqual({
-      tagInput: 'Tag name',
+      tagName: 'Tag name',
     });
   });
 
-  it('handles SUBMIT_TAG_INPUT', () => {
+  it('handles SUBMIT_TAG_NAME', () => {
     const initialState = {
-      tagInput: 'Tag',
-      tags: [],
+      tagName: 'Tag',
+      colorSelectVisible: false,
+      availableTags: [],
     };
     const action = {
-      type: types.SUBMIT_TAG_INPUT,
+      type: types.SUBMIT_TAG_NAME,
     };
     const nextState = reducer(initialState, action);
     expect(nextState).toEqual({
-      tagInput: '',
-      tags: [{
-        label: 'Tag',
-        color: '',
-      }],
+      availableTags: [],
+      tagName: 'Tag',
+      colorSelectVisible: true,
     });
   });
 
   it('handles SUBMIT_TAG_INPUT with duplicate input', () => {
     const initialState = {
-      tagInput: 'Tag',
-      tags: [{
+      tagName: 'Tag',
+      availableTags: [{
         label: 'Tag',
         color: '',
       }],
+      displayedTags: [],
+      colorSelectVisible: false,
+
     };
     const action = {
-      type: types.SUBMIT_TAG_INPUT,
+      type: types.SUBMIT_TAG_NAME,
+    };
+    const nextState = reducer(initialState, action);
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('handles SUBMIT_TAG_INPUT with tag already displayed', () => {
+    const initialState = {
+      tagName: 'Tag',
+      displayedTags: [{
+        label: 'Tag',
+        color: '',
+      }],
+      availableTags: [],
+      colorSelectVisible: false,
+
+    };
+    const action = {
+      type: types.SUBMIT_TAG_NAME,
     };
     const nextState = reducer(initialState, action);
     expect(nextState).toEqual(initialState);
@@ -49,11 +69,12 @@ describe('reducer', () => {
 
   it('handles REMOVE_TAG', () => {
     const initialState = {
-      tagInput: '',
-      tags: [{
+      tagName: '',
+      displayedTags: [{
         label: 'Tag',
         color: '',
       }],
+      availableTags: [],
     };
     const action = {
       type: types.REMOVE_TAG,
@@ -61,15 +82,19 @@ describe('reducer', () => {
     };
     const nextState = reducer(initialState, action);
     expect(nextState).toEqual({
-      tagInput: '',
-      tags: [],
+      tagName: '',
+      displayedTags: [],
+      availableTags: [{
+        label: 'Tag',
+        color: '',
+      }],
     });
   });
 
   it('handles REMOVE_TAG when label does not exist', () => {
     const initialState = {
-      tagInput: '',
-      tags: [{
+      tagName: '',
+      displayedTags: [{
         label: 'Tag',
         color: '',
       }],
@@ -80,5 +105,99 @@ describe('reducer', () => {
     };
     const nextState = reducer(initialState, action);
     expect(nextState).toEqual(initialState);
+  });
+
+  it('handles DISPLAY_TAG', () => {
+    const initialState = {
+      tagName: '',
+      displayedTags: [],
+      availableTags: [{
+        label: 'Tag',
+        color: '',
+      }],
+    };
+    const action = {
+      type: types.DISPLAY_TAG,
+      label: 'Tag',
+    };
+    const nextState = reducer(initialState, action);
+    expect(nextState).toEqual({
+      tagName: '',
+      availableTags: [],
+      displayedTags: [{
+        label: 'Tag',
+        color: '',
+      }],
+    });
+  });
+
+  it('handles DISPLAY_TAG when label does not exist', () => {
+    const initialState = {
+      tagName: '',
+      availableTags: [{
+        label: 'Tag',
+        color: '',
+      }],
+      displayedTags: [],
+    };
+    const action = {
+      type: types.REMOVE_TAG,
+      label: 'Nonexistant tag',
+    };
+    const nextState = reducer(initialState, action);
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('handles DISPLAY_TAGSELECT', () => {
+    const initialState = {
+      dropDownVisible: false,
+    };
+    const action = {
+      type: types.TOGGLE_DISPLAY_TAGSELECT,
+    };
+    let nextState = reducer(initialState, action);
+    expect(nextState).toEqual({
+      dropDownVisible: true,
+    });
+    nextState = reducer(nextState, action);
+    expect(nextState).toEqual(initialState);
+  });
+
+  it('handles SELECT_TAG_COLOR', () => {
+    const initialState = {
+      tagColor: '#0fade9',
+    };
+    const action = {
+      type: types.SELECT_TAG_COLOR,
+      color: 'blue',
+    }
+    const nextState = reducer(initialState, action);
+    expect(nextState).toEqual({
+      tagColor: 'blue',
+    });
+  });
+
+  it('handles SUBMIT_TAG', () => {
+    const initialState = {
+      tagColor: 'blue',
+      tagName: 'Tag',
+      displayedTags: [],
+      availableTags: [],
+      colorSelectVisible: true,
+    };
+    const action = {
+      type: types.SUBMIT_TAG,
+    }
+    const nextState = reducer(initialState, action);
+    expect(nextState).toEqual({
+      tagColor: '#0fade9',
+      tagName: '',
+      displayedTags: [{
+        label: 'Tag',
+        color: 'blue',
+      }],
+      availableTags: [],
+      colorSelectVisible: false,
+    });
   });
 });

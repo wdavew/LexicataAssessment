@@ -1,36 +1,87 @@
 import types from './actionTypes';
 
 const INITIAL_STATE = {
-  tags: [],
-  tagInput: '',
+  availableTags: [],
+  displayedTags: [],
+  tagName: '',
+  tagColor: '#0fade9',
+  dropDownVisible: false,
+  colorSelectVisible: false,
 };
 
-// add tag to collection if not already added
-function submitInput(state) {
-  const currentTag = {
-    label: state.tagInput,
-    color: '',
-  };
-  const tagLabels = state.tags.map(tag => tag.label);
-  if (tagLabels.includes(currentTag.label)) return state;
-  return { ...state, tagInput: '', tags: state.tags.concat(currentTag) };
+function tagExists(state) {
+  const currentTag = state.tagName;
+  const tagLabels = state.availableTags
+    .concat(state.displayedTags)
+    .filter(tag => tag)
+    .map(tag => tag.label);
+  return (tagLabels.includes(currentTag));
 }
 
-// remove tag from collection based on provided label
+// add tag to array of available tags if it does not exist
+function submitTagName(state) {
+  if (tagExists(state)) return state;
+  return {
+    ...state,
+    colorSelectVisible: true,
+  };
+}
+
+function moveTag(label, arrayFrom, arrayTo) {
+  const moved = arrayFrom.filter(tag => tag.label === label);
+  const newArrayFrom = arrayFrom.filter(tag => tag.label !== label);
+  if (!moved.length) return { from: arrayFrom, to: arrayTo };
+  return { from: newArrayFrom, to: arrayTo.concat(moved) };
+}
+
+// remove tag from array of displayed tags and replace it in available tags
+// return unmodified state if targeted tag does not exist
 function removeTag(state, action) {
-  const labelToRemove = action.label;
-  const newTags = state.tags.filter(tag => tag.label !== labelToRemove);
-  return { ...state, tags: newTags };
+  const moved = moveTag(action.label, state.displayedTags, state.availableTags);
+  return { ...state, displayedTags: moved.from, availableTags: moved.to };
+}
+
+// remove tag from array of available tags and replace it in displayed tags
+// return unmodified state if targeted tag does not exist
+function displayTag(state, action) {
+  const moved = moveTag(action.label, state.availableTags, state.displayedTags);
+  return { ...state, displayedTags: moved.to, availableTags: moved.from };
+}
+
+function submitTag(state) {
+  if (tagExists(state)) return state;
+  const newTag = {
+    label: state.tagName,
+    color: state.tagColor,
+  };
+  const displayedTags = state.displayedTags.concat([newTag]);
+  return {
+    ...state,
+    displayedTags,
+    tagName: '',
+    tagColor: '#0fade9',
+    colorSelectVisible: false,
+  };
 }
 
 export default (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case types.CHANGE_TAG_INPUT:
-      return { ...state, tagInput: action.value };
-    case types.SUBMIT_TAG_INPUT:
-      return submitInput(state);
+    case types.CHANGE_TAG_NAME:
+      return { ...state, tagName: action.value };
+    case types.SUBMIT_TAG_NAME:
+      return submitTagName(state);
     case types.REMOVE_TAG:
       return removeTag(state, action);
+    case types.DISPLAY_TAG:
+      return displayTag(state, action);
+    case types.TOGGLE_DISPLAY_TAGSELECT: {
+      const visibility = !state.dropDownVisible;
+      return { ...state, dropDownVisible: visibility };
+    }
+    case types.SELECT_TAG_COLOR:
+      return { ...state, tagColor: action.color };
+    case types.SUBMIT_TAG:
+      return submitTag(state);
     default:
       return state;
   }
