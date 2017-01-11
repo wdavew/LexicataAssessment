@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 // An array of existing tags. Just uncomment when you want to use them.
 // import tagsJSON from '../../api/tags.json';
-
 import './TagEditor.css';
+
 
 class TagEditor extends Component {
 
