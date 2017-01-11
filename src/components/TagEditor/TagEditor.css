@@ -7,7 +7,139 @@
   border-radius: 6px;
 }
 
+.tag-editor ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+
+button {
+  display: inline-block;
+  background: none;
+  border: none;
+}
+button:focus {
+  outline: none;
+}
+button:hover, .color-select-square:hover {
+  cursor: pointer;
+}
+
 .tag-editor-title {
-  margin: 0px;
   font-weight: 500;
+  padding: 0px;
+  margin: 0px;
+}
+
+#tag-display {
+  margin: 15px 0px;
+}
+
+.color-select-square {
+  border-radius: 1px;
+  float: left;
+  width: 20px;
+  height: 20px;
+}
+
+#color-select {
+  position: absolute;
+  margin-left: 150px;
+  margin-top: 10px;
+  z-index: 2;
+  width: 99px;
+}
+
+.tag-icon {
+  color: white;
+  display: inline-flex;
+  margin: 5px 5px 0px 0px;
+  justify-content: space-between;
+  align-items: center;
+  height: 30px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0, 0.25);
+}
+
+.tag-label {
+  margin: 5px 10px;
+}
+.remove-button {
+  color: white;
+  font-size: 1em;
+  font-weight: 600;
+  height: 100%;
+  width: 30px;
+  border-left: 1px solid rgba(0,0,0, 0.25);
+}
+
+#input-container {
+  vertical-align:top;
+  display: inline-block;
+}
+
+input {
+  height: 30px;
+  font-size: 1em;
+  padding-left: 5px;
+  border-radius: 3px;
+  border: 1px solid #d0d0d0;
+}
+
+input:focus {
+  outline: none;
+}
+
+#tag-dropdown {
+  min-height: 0px;
+  margin: 0px;
+}
+
+.clickable-btn {
+  margin-left: 9px;
+  height: 30px;
+  color: white;
+}
+
+#tag-dropdown li {
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: white;
+  border: 1px solid #d0d0d0;
+  border-top: none;
+  border-radius: 3px;
+}
+
+#tag-dropdown li:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0, 0.05)
+}
+
+.color-square {
+  display: inline-block;
+  border-radius: 2px;
+  border: 1px solid rgba(0,0,0, 0.5);
+  margin: 5px;
+  width: 20px;
+  height: 20px;
+}
+
+.tag-display-label {
+  margin-left: 5px;
+}
+
+
+#color-select-btn {
+  background-color: #33b5e8;
+}
+
+#submit-tag-btn {
+  background-color: #303030;
+}
+
+
+.color-select-square:focus {
+  outline: 1px solid black;
 }
