@@ -6,10 +6,6 @@ import Dropdown from './Dropdown';
 import ColorSelect from './ColorSelect';
 import ClickableButton from './ClickableButton';
 import Input from './Input';
-
-
-// An array of existing tags. Just uncomment when you want to use them.
-// import tagsJSON from '../../api/tags.json';
 import './TagEditor.css';
 
 class TagEditor extends Component {
@@ -37,16 +33,20 @@ class TagEditor extends Component {
         <div id='tag-display'>
           {tagList}
         </div>
-
-        <div id='tag-creation'>
+        <div id='tag-creation' ref={(tagCreator) => { this.tagCreator = tagCreator } }
+          onFocus={() => displayTagSelect(true)}
+          onBlur={() => displayTagSelect(false)}>
           <div id='input-container'>
-            <Input value={tagName} handleChange={changeName} dropdown={displayTagSelect} />
+            <Input value={tagName} handleChange={changeName} />
             <Dropdown availableTags={availableTags} visible={dropDownVisible} addTag={displayTag} />
           </div>
-          <ClickableButton label="NEW" idName={"color-select-btn"} handleClick={submitTagName} />
+          <div id='color-btn'>
+            <ClickableButton label="NEW" idName={"color-select-btn"} handleClick={submitTagName} />
+            <div className='down-arrow'></div>
+          </div>
           <ClickableButton label="Add Tag" idName={"submit-tag-btn"} handleClick={submitTag} />
+          <ColorSelect selectColor={selectTagColor} visible={colorSelectVisible} />
         </div>
-        <ColorSelect selectColor={selectTagColor} visible={colorSelectVisible} />
       </div>
     );
   }
